@@ -1,0 +1,7 @@
+#!/usr/local/bin/bash
+
+SERVERS=$(curl --silent https://nordvpn.com/api/server/stats)
+
+jq --compact-output -r \
+  '[. | to_entries[] | {server: .key, load: .value.percent} | select(.load > 70) | select(.server | contains("de"))] | sort_by(-.load) | .[]' \
+  <<<"$SERVERS"
