@@ -34,7 +34,12 @@ while getopts ":l:c:h" opt; do
         { echo "Invalid location. Please provide a valid, 2-letter ISO 3166-1 code to -l. (ex: -l us)"; exit 1; }
       ;;
     c)
-      capacity=$OPTARG >&2
+      if [[ "$OPTARG" =~ ^[0-9]+$ ]] && [ "$OPTARG" -ge 1 -a "$OPTARG" -le 100 ]; 
+      then 
+        capacity=$OPTARG >&2; 
+      else
+        { echo "Invalid capacity. Please provide an integer between 1-100 to -c. (ex: -c 90)"; exit 1; }
+      fi
       ;;
     :)
       echo "Option -$OPTARG requires an argument."
