@@ -31,14 +31,22 @@ while getopts ":l:c:h" opt; do
       ;;
     l)
       array_contains iso_codes "$OPTARG"  && location=$OPTARG >&2 || \
-        { echo "Invalid location."; echo "Please provide a valid, 2-letter ISO 3166-1 code to -l."; echo "(ex: -l us)"; exit 1; }
+        { 
+          echo "Invalid location."; 
+          echo "Please provide a valid, 2-letter ISO 3166-1 code to -l."; 
+          echo "(ex: -l us)"; exit 1; 
+        }
       ;;
     c)
       if [[ "$OPTARG" =~ ^[0-9]+$ ]] && [ "$OPTARG" -ge 1 -a "$OPTARG" -le 100 ]; 
       then 
         capacity=$OPTARG >&2; 
       else
-        { echo "Invalid capacity."; echo "Please provide an integer between 1-100 to -c."; echo "(ex: -c 90)"; exit 1; }
+        { 
+          echo "Invalid capacity."; 
+          echo "Please provide an integer between 1-100 to -c."; 
+          echo "(ex: -c 90)"; exit 1; 
+        }
       fi
       ;;
     :)
