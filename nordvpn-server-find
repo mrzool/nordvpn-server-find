@@ -49,7 +49,7 @@ while getopts ":l:c:h" opt; do
     esac
 done
 
-echo "Looking for servers in ${location^^} with current capacity higher than $capacity%..."
+echo "Looking for servers located in ${location^^} with current capacity higher than $capacity%..."
 
 jq --compact-output -r --arg location $location --arg capacity $capacity \
   '[. | to_entries[] | {server: .key, capacity: .value.percent} | select(.capacity > ($capacity|tonumber)) | select(.server | contains($location))] | sort_by(-.capacity) | .[]' \
