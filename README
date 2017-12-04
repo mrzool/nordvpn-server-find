@@ -1,8 +1,7 @@
-Small script to quickly find the fastest NordVPN servers, filtering
-by location and current capacity (i.e. server load).
+Small script to quickly find the fastest NordVPN servers, filtering by
+location and current capacity (i.e. server load).
 
-The script calls an undocumented NordVPN API endpoint for quickest
-results.
+The script calls an undocumented NordVPN API endpoint for quickest results.
 
 USAGE
 
