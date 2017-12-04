@@ -110,8 +110,7 @@ done < <(jq --compact-output -r --arg location $location --arg capacity $capacit
   sort_by(-.value) | from_entries | to_entries | map("\(.key)=\(.value|tostring)") | .[]' <<<"$servers")
 
 # Print out results
-if [[ $results == "" ]];
-then
+if [ ${#results[@]} -eq 0 ]; then
   echo "No servers found :(" >&2
 else
   for key in "${!results[@]}"
