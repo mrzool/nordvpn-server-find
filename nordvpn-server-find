@@ -112,6 +112,6 @@ done < <(jq --compact-output -r --arg location $location --arg capacity $capacit
 # Print out results
 for key in "${!results[@]}"
 do
-    echo "$key: ${results[$key]}%"
+    echo "$key ${results[$key]}%"
 done |
-awk '{print $NF,$0}' | sort -nr | cut -f2- -d' '
+awk '{print $NF,$0}' | sort -nr | cut -f2- -d' ' | column -t
