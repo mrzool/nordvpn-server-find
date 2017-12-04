@@ -119,3 +119,5 @@ else
   done |
     awk '{print $NF,$0}' | sort -nr | cut -f2- -d' ' | column -t
 fi
+
+echo
