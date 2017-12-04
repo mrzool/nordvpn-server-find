@@ -1,7 +1,5 @@
 #!/usr/local/bin/bash
 
-SERVERS=$(curl --silent https://nordvpn.com/api/server/stats)
-
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
 
@@ -51,7 +49,7 @@ while getopts ":l:c:h" opt; do
       array_contains iso_codes "$OPTARG"  && location=$OPTARG >&2 || \
         { 
           echo "Invalid location parameter." >&2
-          echo "Please provide a valid, 2-letter ISO 3166-1 code to -l." >&2
+          echo "Please provide a valid ISO 3166-1 country code to -l." >&2
           echo "(ex: -l us)" >&2
           exit 1
         }
@@ -92,6 +90,8 @@ then
 fi
 
 echo "Looking for servers located in ${location^^} with current capacity higher than $capacity%..."
+
+SERVERS=$(curl --silent https://nordvpn.com/api/server/stats)
 
 jq --compact-output -r --arg location $location --arg capacity $capacity \
   '[. | to_entries[] | {server: .key, capacity: .value.percent} | select(.capacity > ($capacity|tonumber)) | select(.server | contains($location))] | sort_by(-.capacity) | .[]' \
