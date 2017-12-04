@@ -23,6 +23,10 @@ TODO
 - colored output bar?
 - handle a comma-separated list of locations?
 
+BUGS
+
+Please report here: https://github.com/mrzool/nordvpn-server-find/issues
+
 AUTHOR
 
 Mattia Tezzele <info@mrzool.cc>
