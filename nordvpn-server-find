@@ -1,7 +1,5 @@
 #!/usr/local/bin/bash
 
-# todo: bash 4 version check, jq check, usage info, pretty print of results
-
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
 
