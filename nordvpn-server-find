@@ -1,4 +1,7 @@
 #!/usr/local/bin/bash
+# Script: nordvpn-server-find
+# Author: Mattia Tezzele <info@mrzool.cc>
+# Date: December 2017
 
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
