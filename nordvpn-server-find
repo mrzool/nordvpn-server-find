@@ -89,7 +89,9 @@ then
     exit 1
 fi
 
+echo
 echo "Looking for servers located in ${location^^} with current capacity higher than $capacity%..."
+echo
 
 SERVERS=$(curl --silent https://nordvpn.com/api/server/stats)
 
