@@ -108,3 +108,10 @@ done < <(jq --compact-output -r --arg location $location --arg capacity $capacit
   select(.value > ($capacity|tonumber)) |
   select(.key|contains($location))] |
   sort_by(-.value) | from_entries | to_entries | map("\(.key)=\(.value|tostring)") | .[]' <<<"$servers")
+
+# Print out results
+for key in "${!results[@]}"
+do
+    echo "$key: ${results[$key]}%"
+done |
+awk '{print $NF,$0}' | sort -nr | cut -f2- -d' '
