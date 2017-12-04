@@ -93,8 +93,18 @@ echo
 echo "Looking for servers located in ${location^^} with current capacity higher than $capacity%..."
 echo
 
-SERVERS=$(curl --silent https://nordvpn.com/api/server/stats)
 
-jq --compact-output -r --arg location $location --arg capacity $capacity \
-  '[. | to_entries[] | {server: .key, capacity: .value.percent} | select(.capacity > ($capacity|tonumber)) | select(.server | contains($location))] | sort_by(-.capacity) | .[]' \
-  <<<"$SERVERS"
+servers=$(curl --silent https://nordvpn.com/api/server/stats)
+
+# Declare and populate array
+declare -A results
+while IFS="=" read -r key value
+do
+    results[$key]="$value"
+done < <(jq --compact-output -r --arg location $location --arg capacity $capacity \
+  '[. |
+  to_entries[] |
+  {key: .key, value: .value.percent} |
+  select(.value > ($capacity|tonumber)) |
+  select(.key|contains($location))] |
+  sort_by(-.value) | from_entries | to_entries | map("\(.key)=\(.value|tostring)") | .[]' <<<"$servers")
