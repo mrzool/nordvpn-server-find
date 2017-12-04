@@ -1,4 +1,5 @@
-A small Bash script to quickly find the fastest NordVPN servers, filtering the results by location and current capacity.
+A small Bash script to quickly find the fastest NordVPN servers, filtering 
+the results by location and current capacity.
 
 The script uses an undocumented NordVPN API endpoint for the quickest result.
 
@@ -6,8 +7,8 @@ Usage:
 
 nordvpn-server-find -l <location> -c <capacity>
 
-<location> must be a 2-letter country code as defined by the ISO 3166-1 alpha-2 standard (ex: us, uk, de...)
-<capacity> must be an integer between 1-100 (defaults to 70)
+<location> a 2-letter country code as defined by ISO 3166-1 standard (ex: us, uk, de)
+<capacity> an integer between 1-100 (defaults to 70)
 
 Dependencies:
 
