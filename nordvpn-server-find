@@ -1,5 +1,7 @@
 #!/usr/local/bin/bash
 
+# todo: bash 4 version check, jq check, usage info, pretty print of results
+
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
 
@@ -90,7 +92,7 @@ then
 fi
 
 echo
-echo "Looking for servers located in ${location^^} with current capacity higher than $capacity%..."
+echo "Looking for servers located in $(tput bold)${location^^}$(tput sgr0) with current capacity higher than $(tput bold)$capacity%$(tput sgr0)..."
 echo
 
 
@@ -111,11 +113,11 @@ done < <(jq --compact-output -r --arg location $location --arg capacity $capacit
 
 # Print out results
 if [ ${#results[@]} -eq 0 ]; then
-  echo "No servers found :(" >&2
+  echo "$(tput setaf 1)No servers found :(" >&2
 else
   for key in "${!results[@]}"
   do
-    echo "$key ${results[$key]}%"
+    echo -e "$(tput setaf 6 && tput bold)$key $(tput sgr0) ${results[$key]}%"
   done |
     awk '{print $NF,$0}' | sort -nr | cut -f2- -d' ' | column -t
 fi
