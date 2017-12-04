@@ -19,7 +19,6 @@ DEPENDENCIES
 TODO
 
 - dependencies check
-- usage information with -h
 - colored output bar?
 - handle a comma-separated list of locations?
 

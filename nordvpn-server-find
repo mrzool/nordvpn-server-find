@@ -42,7 +42,12 @@ array_contains () {
 while getopts ":l:c:h" opt; do
     case "$opt" in
     h)
-      show_help
+      echo
+      echo "nordvpn-server-find -l $(tput smul)location$(tput rmul) -c $(tput smul)capacity$(tput rmul)"
+      echo
+      echo "$(tput smul)location$(tput rmul)   2-letter ISO 3166-1 country code (ex: us, uk, de)"
+      echo "$(tput smul)capacity$(tput rmul)   integer between 1-100 (defaults to 70)"
+      echo
       exit 0
       ;;
     l)
