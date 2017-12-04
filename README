@@ -1,4 +1,5 @@
-Small script to quickly find the fastest NordVPN servers, filtering by location and current capacity (i.e. server load).
+Small script to quickly find the fastest NordVPN servers, filtering
+by location and current capacity (i.e. server load).
 
 The script calls an undocumented NordVPN API endpoint for quickest
 results.
@@ -7,8 +8,8 @@ USAGE
 
 nordvpn-server-find -l <location> -c <capacity>
 
-<location> 2-letter ISO 3166-1 country code (ex: us, uk, de)
-<capacity> integer between 1-100 (defaults to 70)
+<location>   2-letter ISO 3166-1 country code (ex: us, uk, de)
+<capacity>   integer between 1-100 (defaults to 70)
 
 DEPENDENCIES
 
