@@ -21,7 +21,7 @@ TODO
 - dependencies check
 - usage information with -h
 - colored output bar?
-- handle an array of locations?
+- handle a comma-separated list of locations?
 
 AUTHOR
 
