@@ -32,9 +32,10 @@ while getopts ":l:c:h" opt; do
     l)
       array_contains iso_codes "$OPTARG"  && location=$OPTARG >&2 || \
         { 
-          echo "Invalid location."
-          echo "Please provide a valid, 2-letter ISO 3166-1 code to -l."
-          echo "(ex: -l us)"; exit 1; 
+          echo "Invalid location parameter." >&2
+          echo "Please provide a valid, 2-letter ISO 3166-1 code to -l." >&2
+          echo "(ex: -l us)" >&2
+          exit 1
         }
       ;;
     c)
@@ -43,9 +44,10 @@ while getopts ":l:c:h" opt; do
         capacity=$OPTARG >&2; 
       else
         { 
-          echo "Invalid capacity."
-          echo "Please provide an integer between 1-100 to -c."
-          echo "(ex: -c 90)"; exit 1; 
+          echo "Invalid capacity parameter." >&2
+          echo "Please provide an integer between 1-100 to -c." >&2
+          echo "(ex: -c 90)" >&2
+          exit 1
         }
       fi
       ;;
@@ -64,8 +66,8 @@ done
 
 if [[ "$location" == false ]];
 then
-    echo "A location is required." >&2
-    echo "Please provide a valid location with the -l option." >&2
+    echo "A location parameter is required." >&2
+    echo "Please provide a valid location parameter using the -l option." >&2
     echo "(ex: -l us)" >&2
     echo "Use -h to show the help." >&2
     exit 1
