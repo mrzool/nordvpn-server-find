@@ -107,7 +107,11 @@ done < <(jq --compact-output -r --arg location $location --arg capacity $capacit
   {key: .key, value: .value.percent} |
   select(.value > ($capacity|tonumber)) |
   select(.key|contains($location))] |
-  sort_by(-.value) | from_entries | to_entries | map("\(.key)=\(.value|tostring)") | .[]' <<<"$servers")
+  sort_by(-.value) |
+  from_entries |
+  to_entries |
+  map("\(.key)=\(.value|tostring)") |
+  .[]' <<<"$servers")
 
 # Print out results
 if [ ${#results[@]} -eq 0 ]; then
