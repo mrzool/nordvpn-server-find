@@ -6,11 +6,11 @@
 # Dependencies check
 if ((BASH_VERSINFO[0] < 4))
 then 
-  echo "Error: This script requires at least Bash 4.0"
+  2>&1 echo "Error: This script requires at least Bash 4.0"
   exit 1
 fi
 
-type jq >/dev/null 2>&1 || { echo >&2 "Missing dependency: This script requires jq 1.5"; exit 1; }
+type jq >/dev/null 2>&1 || { 2>&1 echo "Missing dependency: This script requires jq 1.5"; exit 1; }
 
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
@@ -65,9 +65,9 @@ while getopts ":l:c:h" opt; do
     l)
       array_contains iso_codes "${OPTARG,,}"  && location=${OPTARG,,} >&2 || \
         { 
-          echo "Invalid location parameter." >&2
-          echo "Please provide a valid ISO 3166-1 country code to -l." >&2
-          echo "(ex: -l us)" >&2
+          >&2 echo "Invalid location parameter."
+          >&2 echo "Please provide a valid ISO 3166-1 country code to -l."
+          >&2 echo "(ex: -l us)"
           exit 1
         }
       ;;
@@ -77,21 +77,21 @@ while getopts ":l:c:h" opt; do
         capacity=$OPTARG >&2; 
       else
         { 
-          echo "Invalid capacity parameter." >&2
-          echo "Please provide an integer between 1-100 to -c." >&2
-          echo "(ex: -c 90)" >&2
+          >&2 echo "Invalid capacity parameter."
+          >&2 echo "Please provide an integer between 1-100 to -c."
+          >&2 echo "(ex: -c 90)"
           exit 1
         }
       fi
       ;;
     :)
-      echo "Option -$OPTARG requires an argument." >&2
-      echo "Use -h to show the help." >&2
+      >&2 echo "Option -$OPTARG requires an argument."
+      >&2 echo "Use -h to show the help."
       exit 1
       ;;
     \?)
-      echo "Invalid option: -$OPTARG" >&2
-      echo "Use -h to show the help." >&2
+      >&2 echo "Invalid option: -$OPTARG"
+      >&2 echo "Use -h to show the help."
       exit 1
       ;;
     esac
@@ -99,10 +99,10 @@ done
 
 if [[ "$location" == false ]];
 then
-    echo "A location parameter is required." >&2
-    echo "Please provide a valid location parameter using the -l option." >&2
-    echo "(ex: -l us)" >&2
-    echo "Use -h to show the help." >&2
+    >&2 echo "A location parameter is required."
+    >&2 echo "Please provide a valid location parameter using the -l option."
+    >&2 echo "(ex: -l us)"
+    >&2 echo "Use -h to show the help."
     exit 1
 fi
 
@@ -132,7 +132,7 @@ done < <(jq --compact-output -r --arg location $location --arg capacity $capacit
 
 # Print out results
 if [ ${#results[@]} -eq 0 ]; then
-  echo "$(tput setaf 1)No servers found :(" >&2
+  >&2 echo "$(tput setaf 1)No servers found :("
 else
   for key in "${!results[@]}"
   do
