@@ -3,6 +3,18 @@
 # Author: Mattia Tezzele <info@mrzool.cc>
 # Date: December 2017
 
+# Dependencies check
+if ((BASH_VERSINFO[0] < 4))
+then 
+  echo "Error: This script requires at least Bash 4.0"
+  exit 1
+fi
+
+if ! type "$jq" > /dev/null; then
+  echo "Missing dependency: This script requires jq 1.5"
+  exit 1
+fi
+
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
 

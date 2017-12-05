@@ -17,7 +17,6 @@ DEPENDENCIES
 
 TODO
 
-- dependencies check
 - colored output bar?
 - handle a comma-separated list of locations?
 
