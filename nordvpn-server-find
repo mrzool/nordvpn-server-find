@@ -10,10 +10,7 @@ then
   exit 1
 fi
 
-if ! type "$jq" > /dev/null; then
-  echo "Missing dependency: This script requires jq 1.5"
-  exit 1
-fi
+type jq >/dev/null 2>&1 || { echo >&2 "Missing dependency: This script requires jq 1.5"; exit 1; }
 
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
