@@ -2,7 +2,7 @@ Small script to find the fastest NordVPN servers, filtering by
 location and current capacity (i.e. server load).
 
 Super useful if you use a third-party VPN client (like Viscosity)
-and want to quickly find which server to connect to.
+and want to quickly find out the fastest server to connect to.
 
 The script calls an undocumented NordVPN API endpoint for quickest
 results.
