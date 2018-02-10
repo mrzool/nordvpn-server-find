@@ -4,8 +4,8 @@ location and current capacity (i.e. server load).
 Super useful if you use a third-party VPN client (like Viscosity)
 and want to quickly find out the fastest server to connect to.
 
-The script calls an undocumented NordVPN API endpoint for quickest
-results.
+The script calls an undocumented NordVPN API endpoint for quick and
+reliable results.
 
 USAGE
 
@@ -21,7 +21,8 @@ DEPENDENCIES
 
 BUGS
 
-Please report here: https://github.com/mrzool/nordvpn-server-find/issues
+Please report here:
+https://github.com/mrzool/nordvpn-server-find/issues
 
 AUTHOR
 
