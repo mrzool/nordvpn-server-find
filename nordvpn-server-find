@@ -34,8 +34,8 @@ iso_codes=(
   'pn' 'pr' 'ps' 'pt' 'pw' 'py' 'qa' 're' 'ro' 'rs' 'ru' 'rw' 'sa' 'sb' 'sc'
   'sd' 'se' 'sg' 'sh' 'si' 'sj' 'sk' 'sl' 'sm' 'sn' 'so' 'sr' 'ss' 'st' 'sv'
   'sx' 'sy' 'sz' 'tc' 'td' 'tf' 'tg' 'th' 'tj' 'tk' 'tl' 'tm' 'tn' 'to' 'tr'
-  'tt' 'tv' 'tw' 'tz' 'ua' 'ug' 'um' 'us' 'uy' 'uz' 'va' 'vc' 've' 'vg' 'vi'
-  'vn' 'vu' 'wf' 'ws' 'ye' 'yt' 'za' 'zm' 'zw'
+  'tt' 'tv' 'tw' 'tz' 'ua' 'ug' 'uk' 'um' 'us' 'uy' 'uz' 'va' 'vc' 've' 'vg'
+  'vi' 'vn' 'vu' 'wf' 'ws' 'ye' 'yt' 'za' 'zm' 'zw'
   )
 
 array_contains () { 
