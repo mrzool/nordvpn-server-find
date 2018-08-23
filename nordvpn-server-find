@@ -16,7 +16,8 @@ type jq >/dev/null 2>&1 || { 2>&1 echo "Missing dependency: This script requires
 OPTIND=1
 
 location=false
-capacity=70 # Default capacity value is 70%
+capacity=30 # Default capacity value is 30%
+limit=20 # Default limit value is 20
 
 iso_codes=(
   'ad' 'ae' 'af' 'ag' 'ai' 'al' 'am' 'ao' 'aq' 'ar' 'as' 'at' 'au' 'aw' 'ax'
@@ -51,14 +52,15 @@ array_contains () {
   return $in
 }
 
-while getopts ":l:c:h" opt; do
+while getopts ":l:c:n:h" opt; do
     case "$opt" in
     h)
       echo
       echo "nordvpn-server-find -l $(tput smul)location$(tput rmul) -c $(tput smul)capacity$(tput rmul)"
       echo
       echo "$(tput smul)location$(tput rmul)   2-letter ISO 3166-1 country code (ex: us, uk, de)"
-      echo "$(tput smul)capacity$(tput rmul)   integer between 1-100 (defaults to 70)"
+      echo "$(tput smul)capacity$(tput rmul)   integer between 1-100 (defaults to 30)"
+      echo "$(tput smul)limit$(tput rmul)   integer between 1-100 (defaults to 20)"
       echo
       exit 0
       ;;
@@ -80,6 +82,19 @@ while getopts ":l:c:h" opt; do
           >&2 echo "Invalid capacity parameter."
           >&2 echo "Please provide an integer between 1-100 to -c."
           >&2 echo "(ex: -c 90)"
+          exit 1
+        }
+      fi
+      ;;
+    n)
+      if [[ "$OPTARG" =~ ^[0-9]+$ ]] && [ "$OPTARG" -ge 1 -a "$OPTARG" -le 100 ]; 
+      then 
+        limit=$OPTARG >&2; 
+      else
+        { 
+          >&2 echo "Invalid limit parameter."
+          >&2 echo "Please provide an integer between 1-100 to -n."
+          >&2 echo "(ex: -n 50)"
           exit 1
         }
       fi
@@ -107,7 +122,7 @@ then
 fi
 
 echo
-echo "Looking for servers located in $(tput bold)${location^^}$(tput sgr0) with current capacity higher than $(tput bold)$capacity%$(tput sgr0)..."
+echo "Looking for servers located in $(tput bold)${location^^}$(tput sgr0) with current capacity lower than $(tput bold)$capacity%$(tput sgr0)..."
 echo
 
 
@@ -118,17 +133,17 @@ declare -A results
 while IFS="=" read -r key value
 do
     results[$key]="$value"
-done < <(jq --compact-output -r --arg location $location --arg capacity $capacity \
+done < <(jq --compact-output -r --arg location $location --arg capacity $capacity --arg limit $limit \
   '[. |
   to_entries[] |
   {key: .key, value: .value.percent} |
-  select(.value > ($capacity|tonumber)) |
+  select(.value <= ($capacity|tonumber)) |
   select(.key|contains($location))] |
-  sort_by(-.value) |
+  sort_by(.value) |
   from_entries |
   to_entries |
   map("\(.key)=\(.value|tostring)") |
-  .[]' <<<"$servers")
+  limit(($limit|tonumber);.[])' <<<"$servers")
 
 # Print out results
 if [ ${#results[@]} -eq 0 ]; then
@@ -138,7 +153,8 @@ else
   do
     echo -e "$(tput setaf 6 && tput bold)$key $(tput sgr0) ${results[$key]}%"
   done |
-    awk '{print $NF,$0}' | sort -nr | cut -f2- -d' ' | column -t
+    awk '{print $NF,$0}' | sort -n | cut -f2- -d' ' | column -t
 fi
 
 echo
+
