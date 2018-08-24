@@ -60,7 +60,7 @@ while getopts ":l:c:n:h" opt; do
       echo
       echo "$(tput smul)location$(tput rmul)   2-letter ISO 3166-1 country code (ex: us, uk, de)"
       echo "$(tput smul)capacity$(tput rmul)   integer between 1-100 (defaults to 30)"
-      echo "$(tput smul)limit$(tput rmul)   integer between 1-100 (defaults to 20)"
+      echo "$(tput smul)limit$(tput rmul)      integer between 1-100 (defaults to 20)"
       echo
       exit 0
       ;;
