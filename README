@@ -13,7 +13,7 @@ nordvpn-server-find -l <location> -c <capacity> -n <limit>
 
 <location>   2-letter ISO 3166-1 country code (ex: us, uk, de)
 <capacity>   integer between 1-100 (defaults to 30)
-<limit>   integer between 1-100 (defaults to 20)
+<limit>      integer between 1-100 (defaults to 20)
 
 DEPENDENCIES
 
