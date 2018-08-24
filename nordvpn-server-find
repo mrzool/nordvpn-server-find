@@ -133,7 +133,7 @@ declare -A results
 while IFS="=" read -r key value
 do
     results[$key]="$value"
-done < <(jq --compact-output -r --arg location $location --arg capacity $capacity --arg limit $limit \
+done < <(jq --compact-output -r --arg location "$location" --arg capacity "$capacity" --arg limit "$limit" \
   '[. |
   to_entries[] |
   {key: .key, value: .value.percent} |
