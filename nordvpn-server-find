@@ -59,8 +59,8 @@ while getopts ":l:c:n:h" opt; do
       echo "nordvpn-server-find -l $(tput smul)location$(tput rmul) -c $(tput smul)capacity$(tput rmul) -n $(tput smul)limit$(tput rmul)"
       echo
       echo "$(tput smul)location$(tput rmul)   2-letter ISO 3166-1 country code (ex: us, uk, de)"
-      echo "$(tput smul)capacity$(tput rmul)   integer between 1-100 (defaults to 30)"
-      echo "$(tput smul)limit$(tput rmul)      integer between 1-100 (defaults to 20)"
+      echo "$(tput smul)capacity$(tput rmul)   current server load, integer between 1-100 (defaults to 30)"
+      echo "$(tput smul)limit$(tput rmul)      limits number of results, integer between 1-100 (defaults to 20)"
       echo
       exit 0
       ;;
@@ -122,7 +122,7 @@ then
 fi
 
 echo
-echo "Looking for servers located in $(tput bold)${location^^}$(tput sgr0) with current capacity lower than $(tput bold)$capacity%$(tput sgr0)..."
+echo "Looking for servers located in $(tput bold)${location^^}$(tput sgr0) with server load lower than $(tput bold)$capacity%$(tput sgr0)..."
 echo
 
 
