@@ -52,7 +52,7 @@ array_contains () {
   return $in
 }
 
-while getopts ":l:c:n:h" opt; do
+while getopts ":l:c:n:h:r" opt; do
     case "$opt" in
     h)
       echo
@@ -62,6 +62,11 @@ while getopts ":l:c:n:h" opt; do
       echo "$(tput smul)capacity$(tput rmul)   current server load, integer between 1-100 (defaults to 30)"
       echo "$(tput smul)limit$(tput rmul)      limits number of results, integer between 1-100 (defaults to 20)"
       echo
+      exit 0
+      ;;
+    r)
+      rec_server=$(curl --silent "https://nordvpn.com/wp-admin/admin-ajax.php?action=servers_recommendations" | jq -r '.[0].hostname')
+      echo "$rec_server"
       exit 0
       ;;
     l)
