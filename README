@@ -1,19 +1,20 @@
-Small script to find the fastest NordVPN servers, filtering by
-location and current capacity (i.e. server load).
+Small script to find the fastest NordVPN servers, filtering by location and 
+current capacity (i.e. server load).
 
-Super useful if you use a third-party VPN client (like Viscosity)
-and want to quickly find out the fastest server to connect to.
+Super useful if you use a third-party VPN client (like Viscosity) and want
+to quickly find out the fastest server to connect to.
 
-The script calls an undocumented NordVPN API endpoint for quick and
-reliable results.
+The script calls an undocumented NordVPN API endpoint for quick and reliable
+results.
 
 USAGE
 
-nordvpn-server-find -l <location> -c <capacity> -n <limit>
+nordvpn-server-find [-r] [-l -c -n]
 
-<location>   2-letter ISO 3166-1 country code (ex: us, uk, de)
-<capacity>   current server load, integer between 1-100 (defaults to 30)
-<limit>      limits number of results, integer between 1-100 (defaults to 20)
+-r   recommended  just output the recommended server for your location and exit
+-l   location     2-letter ISO 3166-1 country code (ex: us, uk, de)
+-c   capacity     current server load, integer between 1-100 (defaults to 30)
+-n   limit        limits number of results, integer between 1-100 (defaults to 20)
 
 DEPENDENCIES
 
