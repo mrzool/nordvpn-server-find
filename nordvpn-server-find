@@ -56,11 +56,12 @@ while getopts ":l:c:n:rh" opt; do
     case "$opt" in
     h)
       echo
-      echo "nordvpn-server-find -l $(tput smul)location$(tput rmul) -c $(tput smul)capacity$(tput rmul) -n $(tput smul)limit$(tput rmul)"
+      echo "nordvpn-server-find [-r] [-l -c -n]"
       echo
-      echo "$(tput smul)location$(tput rmul)   2-letter ISO 3166-1 country code (ex: us, uk, de)"
-      echo "$(tput smul)capacity$(tput rmul)   current server load, integer between 1-100 (defaults to 30)"
-      echo "$(tput smul)limit$(tput rmul)      limits number of results, integer between 1-100 (defaults to 20)"
+      echo "-r   $(tput smul)recommended$(tput rmul)   just output the recommended server for your location and exit"
+      echo "-l   $(tput smul)location$(tput rmul)      2-letter ISO 3166-1 country code (ex: us, uk, de)"
+      echo "-c   $(tput smul)capacity$(tput rmul)      current server load, integer between 1-100 (defaults to 30)"
+      echo "-n   $(tput smul)limit$(tput rmul)         limits number of results, integer between 1-100 (defaults to 20)"
       echo
       exit 0
       ;;
