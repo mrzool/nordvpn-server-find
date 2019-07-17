@@ -16,6 +16,8 @@ nordvpn-server-find [-r] [-l -c -n]
 -c   capacity     current server load, integer between 1-100 (defaults to 30)
 -n   limit        limits number of results, integer between 1-100 (defaults to 20)
 
+If -r is given other options are ignored.
+
 DEPENDENCIES
 
 - Bash 4
