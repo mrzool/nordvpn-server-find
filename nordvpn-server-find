@@ -52,7 +52,7 @@ array_contains () {
   return $in
 }
 
-while getopts ":l:c:n:h:r" opt; do
+while getopts ":l:c:n:rh" opt; do
     case "$opt" in
     h)
       echo
