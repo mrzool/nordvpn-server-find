@@ -16,6 +16,11 @@ nordvpn-server-find [-r] [-l -c -n]
 -c   capacity     current server load, integer between 1-100 (defaults to 30)
 -n   limit        limits number of results, integer between 1-100 (defaults to 20)
 
+-r can be useful for scripting. For example, on macOS this command gets Viscosity 
+to automatically connect to the recommended server for your location:
+
+osascript -e "tell application \"Viscosity\" to connect \"$(nordvpn-server-find -r).tcp\""
+
 If -r is given other options are ignored.
 
 DEPENDENCIES
