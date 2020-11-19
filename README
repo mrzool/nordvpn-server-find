@@ -9,9 +9,10 @@ results.
 
 USAGE
 
-nordvpn-server-find [-r] [-l -c -n]
+nordvpn-server-find -r|(-l LOCATION [-c CAPACITY=30] [-n LIMIT] [-q])
 
--r   recommended  just output the recommended server for your location and exit
+-r   recommended  just output the recommended server for your location and exit, ignoring other options
+-q   quiet        just output the best result for the given location, ignoring the -n and the -c option
 -l   location     2-letter ISO 3166-1 country code (ex: us, uk, de)
 -c   capacity     current server load, integer between 1-100 (defaults to 30)
 -n   limit        limits number of results, integer between 1-100 (defaults to 20)

@@ -15,6 +15,7 @@ type jq >/dev/null 2>&1 || { 2>&1 echo "Missing dependency: This script requires
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
 
+quiet=0
 location=false
 capacity=30 # Default capacity value is 30%
 limit=20 # Default limit value is 20
@@ -52,18 +53,23 @@ array_contains () {
   return $in
 }
 
-while getopts ":l:c:n:rh" opt; do
+while getopts ":l:c:n:rhq" opt; do
     case "$opt" in
     h)
       echo
-      echo "nordvpn-server-find [-r] [-l -c -n]"
+      echo "nordvpn-server-find -r|(-l LOCATION [-c CAPACITY=30] [-n LIMIT] [-q])"
       echo
-      echo "-r   $(tput smul)recommended$(tput rmul)   just output the recommended server for your location and exit"
+      echo "-r   $(tput smul)recommended$(tput rmul)   just output the recommended server for your location and exit, ignoring other options"
+      echo "-q   $(tput smul)quiet$(tput rmul)         just output the best result for the given location, ignoring the -n and the -c option"
       echo "-l   $(tput smul)location$(tput rmul)      2-letter ISO 3166-1 country code (ex: us, uk, de)"
       echo "-c   $(tput smul)capacity$(tput rmul)      current server load, integer between 1-100 (defaults to 30)"
       echo "-n   $(tput smul)limit$(tput rmul)         limits number of results, integer between 1-100 (defaults to 20)"
       echo
       exit 0
+      ;;
+    q)
+      quiet=1
+      limit=1
       ;;
     r)
       rec_server=$(curl --silent "https://nordvpn.com/wp-admin/admin-ajax.php?action=servers_recommendations" | jq -r '.[0].hostname')
@@ -93,9 +99,12 @@ while getopts ":l:c:n:rh" opt; do
       fi
       ;;
     n)
-      if [[ "$OPTARG" =~ ^[0-9]+$ ]] && [ "$OPTARG" -ge 1 -a "$OPTARG" -le 100 ]; 
+      if [[ $quiet -eq 1 ]]
+      then
+        limit=1
+      elif [[ "$OPTARG" =~ ^[0-9]+$ ]] && [ "$OPTARG" -ge 1 -a "$OPTARG" -le 100 ]
       then 
-        limit=$OPTARG >&2; 
+        limit=$OPTARG >&2
       else
         { 
           >&2 echo "Invalid limit parameter."
@@ -127,10 +136,11 @@ then
     exit 1
 fi
 
-echo
-echo "Looking for servers located in $(tput bold)${location^^}$(tput sgr0) with server load lower than $(tput bold)$capacity%$(tput sgr0)..."
-echo
-
+if [[ $quiet -ne 1 ]]; then
+  echo
+  echo "Looking for servers located in $(tput bold)${location^^}$(tput sgr0) with server load lower than $(tput bold)$capacity%$(tput sgr0)..."
+  echo
+fi
 
 servers=$(curl --silent https://nordvpn.com/api/server/stats)
 
@@ -152,14 +162,21 @@ done < <(jq --compact-output -r --arg location "$location" --arg capacity "$capa
   limit(($limit|tonumber);.[])' <<<"$servers")
 
 # Print out results
+
 if [ ${#results[@]} -eq 0 ]; then
+  if [[ $quiet -eq 1 ]]; then
+    exit -1
+  fi
   >&2 echo "$(tput setaf 1)No servers found :("
 else
   for key in "${!results[@]}"
   do
-    echo -e "$(tput setaf 6 && tput bold)$key $(tput sgr0) ${results[$key]}%"
+    if [[ $quiet -eq 1 ]]; then
+      echo "$key"
+    else
+      echo -e "$(tput setaf 6 && tput bold)$key $(tput sgr0) ${results[$key]}%"
+    fi
   done |
     awk '{print $NF,$0}' | sort -n | cut -f2- -d' ' | column -t
 fi
 
-echo
