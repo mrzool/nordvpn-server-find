@@ -57,7 +57,7 @@ while getopts ":l:c:n:rhq" opt; do
     case "$opt" in
     h)
       echo
-      echo "nordvpn-server-find -r|(-l LOCATION [-c CAPACITY=30] [-n LIMIT] [-q])"
+      echo "nordvpn-server-find -r|(-l LOCATION [-c CAPACITY=30] [-n LIMIT=20] [-q])"
       echo
       echo "-r   $(tput smul)recommended$(tput rmul)   just output the recommended server for your location and exit, ignoring other options"
       echo "-q   $(tput smul)quiet$(tput rmul)         just output the best result for the given location, ignoring the -n and the -c option"

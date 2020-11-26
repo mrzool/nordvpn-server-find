@@ -9,7 +9,7 @@ results.
 
 USAGE
 
-nordvpn-server-find -r|(-l LOCATION [-c CAPACITY=30] [-n LIMIT] [-q])
+nordvpn-server-find -r|(-l LOCATION [-c CAPACITY=30] [-n LIMIT=20] [-q])
 
 -r   recommended  just output the recommended server for your location and exit, ignoring other options
 -q   quiet        just output the best result for the given location, ignoring the -n and the -c option
@@ -17,12 +17,12 @@ nordvpn-server-find -r|(-l LOCATION [-c CAPACITY=30] [-n LIMIT] [-q])
 -c   capacity     current server load, integer between 1-100 (defaults to 30)
 -n   limit        limits number of results, integer between 1-100 (defaults to 20)
 
--r can be useful for scripting. For example, on macOS this command gets Viscosity 
-to automatically connect to the recommended server for your location:
+The -r and -q flags can be useful for scripting. For example, on macOS this command
+gets Viscosity to automatically connect to the recommended server for your location:
 
 osascript -e "tell application \"Viscosity\" to connect \"$(nordvpn-server-find -r).tcp\""
 
-If -r is given other options are ignored.
+If -q is given, manually set capacity and limit are ignored. If -r is given all other options are ignored.
 
 DEPENDENCIES
 
