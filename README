@@ -17,7 +17,10 @@ nordvpn-server-find -r|(-l LOCATION [-c CAPACITY=30] [-n LIMIT=20] [-q])
 
 The -r and -q flags can be useful for scripting. For example, on macOS this command gets Viscosity to automatically connect to the recommended server for your location:
 
-osascript -e "tell application \"Viscosity\" to connect \"$(nordvpn-server-find -r).tcp\""
+    #!/usr/bin/osascript
+    tell application "Viscosity"
+      connect "$(nordvpn-server-find -r).tcp"
+    end tell
 
 If -q is given, manually set capacity and limit are ignored. If -r is given all other options are ignored.
 
