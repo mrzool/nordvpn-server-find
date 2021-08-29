@@ -1,6 +1,8 @@
-Small script to find the fastest NordVPN servers, filtering by location and current capacity (i.e. server load).
+Small script to find the fastest NordVPN servers, filtering by location and
+current capacity (i.e. server load).
 
-Super useful if you use a third-party VPN client (like Viscosity) and want to quickly find out the fastest server to connect to.
+Super useful if you use a third-party VPN client (like Viscosity) and want to
+quickly find out the fastest server to connect to.
 
 The script calls an undocumented NordVPN API endpoint for quick and reliable
 results.
@@ -9,20 +11,26 @@ USAGE
 
 nordvpn-server-find -r|(-l LOCATION [-c CAPACITY=30] [-n LIMIT=20] [-q])
 
--r   recommended  just output the recommended server for your location and exit, ignoring other options
--q   quiet        just output the best result for the given location, ignoring the -n and the -c option
--l   location     2-letter ISO 3166-1 country code (ex: us, uk, de)
--c   capacity     current server load, integer between 1-100 (defaults to 30)
--n   limit        limits number of results, integer between 1-100 (defaults to 20)
+-r   recommended  Just output the recommended server for your location and exit,
+                  ignoring other options 
+-q   quiet        Just output the best result for the given location, ignoring
+                  the -n and the -c option 
+-l   location     2-letter ISO 3166-1 country code (ex: us, uk, de) 
+-c   capacity     Current server load, integer between 1-100 (defaults to 30)
+-n   limit        Limits number of results, integer between 1-100 (defaults to
+                  20)
 
-The -r and -q flags can be useful for scripting. For example, on macOS this command gets Viscosity to automatically connect to the recommended server for your location:
+The -r and -q flags can be useful for scripting. For example, on macOS this
+script gets Viscosity to automatically connect to the recommended server for
+your location:
 
     #!/usr/bin/osascript
     tell application "Viscosity"
       connect "$(nordvpn-server-find -r).tcp"
     end tell
 
-If -q is given, manually set capacity and limit are ignored. If -r is given all other options are ignored.
+If -q is given, manually set capacity and limit are ignored. If -r is given all
+other options are ignored.
 
 DEPENDENCIES
 
@@ -31,8 +39,7 @@ DEPENDENCIES
 
 BUGS
 
-Please report here:
-https://github.com/mrzool/nordvpn-server-find/issues
+Please report here: https://github.com/mrzool/nordvpn-server-find/issues
 
 AUTHOR
 
