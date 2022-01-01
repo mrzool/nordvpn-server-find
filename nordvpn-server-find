@@ -137,9 +137,12 @@ then
 fi
 
 if [[ $quiet -ne 1 ]]; then
-  echo
-  echo "Looking for servers located in $(tput bold)${location^^}$(tput sgr0) with server load lower than $(tput bold)$capacity%$(tput sgr0)..."
-  echo
+  # Output the following only if writing to a terminal
+  if [ -t 1 ] ; then
+    echo
+    echo "Looking for servers located in $(tput bold)${location^^}$(tput sgr0) with server load lower than $(tput bold)$capacity%$(tput sgr0)..."
+    echo
+  fi
 fi
 
 servers=$(curl --silent https://nordvpn.com/api/server/stats)
@@ -167,7 +170,12 @@ if [ ${#results[@]} -eq 0 ]; then
   if [[ $quiet -eq 1 ]]; then
     exit -1
   fi
-  >&2 echo "$(tput setaf 1)No servers found :("
+  # Colored output only if writing to a terminal
+  if [ -t 1 ] ; then
+    >&2 echo "$(tput setaf 1)No servers found :("
+  else
+    >&2 echo "No servers found :("
+  fi
 else
   for key in "${!results[@]}"
   do
