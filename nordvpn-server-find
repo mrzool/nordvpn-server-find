@@ -185,6 +185,9 @@ else
       echo -e "$(tput setaf 6 && tput bold)$key $(tput sgr0) ${results[$key]}%"
     fi
   done |
-    awk '{print $NF,$0}' | sort -n | cut -f2- -d' ' | column -t
+    # if [ -t 1] checks if script is writing to a terminal.
+    # If not, strip ANSI color codes from text stream.
+    awk '{print $NF,$0}' | sort -n | cut -f2- -d' ' | column -t |
+    if [ -t 1 ] ; then cat; else sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g"; fi
 fi
 
