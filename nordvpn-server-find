@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Script: nordvpn-server-find
+# Repository URL: https://github.com/mrzool/nordvpn-server-find
+# First release: December 2017
+# Last updated: April 2022
 # Author: Mattia Tezzele <info@mrzool.cc>
-# Date: December 2017
 
 # Dependencies check
 if ((BASH_VERSINFO[0] < 4))
