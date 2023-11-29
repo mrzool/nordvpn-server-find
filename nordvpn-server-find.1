@@ -1,0 +1,59 @@
+.TH nordvpn-server-find 1 "November 2023" "nordvpn-server-find 1.0" "User Commands"
+
+.SH NAME
+nordvpn-server-find \- Find the fastest NordVPN servers based on location and server load
+
+.SH SYNOPSIS
+\fBnordvpn-server-find\fR [\fB-r\fR | (\fB-l\fR \fILOCATION\fR [\fB-c\fR \fICAPACITY=30\fR] [\fB-n\fR \fILIMIT=20\fR] [\fB-q\fR])]
+
+.SH DESCRIPTION
+\fBnordvpn-server-find\fR is a small script that uses an undocumented NordVPN API endpoint to find the fastest servers based on location and current capacity.
+
+.SH OPTIONS
+.TP
+\fB-r\fR
+Output the recommended server for your location and exit, ignoring other options.
+
+.TP
+\fB-q\fR
+Output the best result for the given location, ignoring the \fB-n\fR and the \fB-c\fR option.
+
+.TP
+\fB-l\fR \fILOCATION\fR
+2-letter ISO 3166-1 country code (e.g., us, uk, de).
+
+.TP
+\fB-c\fR \fICAPACITY=30\fR
+Current server load, an integer between 1-100 (defaults to 30).
+
+.TP
+\fB-n\fR \fILIMIT=20\fR
+Limits the number of results, an integer between 1-100 (defaults to 20).
+
+.SH EXAMPLES
+If \fB-q\fR is given, manually set capacity and limit are ignored. If \fB-r\fR is given, all other options are ignored.
+
+Example script for automatically connecting to the recommended server using Viscosity on macOS:
+
+.B
+#!/usr/bin/osascript
+tell application "Viscosity"
+  connect "$(nordvpn-server-find -r).tcp"
+end tell
+.B
+
+.SH DEPENDENCIES
+\fBnordvpn-server-find\fR has the following dependencies:
+.TP
+\fBBash 4\fR
+.TP
+\fBjq 1.5\fR
+
+.SH BUGS
+Report bugs at: https://github.com/mrzool/nordvpn-server-find/issues
+
+.SH AUTHOR
+Mattia Tezzele <info@mrzool.cc>
+
+.SH LICENSE
+This program is distributed under the GNU General Public License.
